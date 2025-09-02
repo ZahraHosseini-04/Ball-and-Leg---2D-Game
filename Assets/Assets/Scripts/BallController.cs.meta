@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 6c8f37a4672469a458042b4f24f080ce
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - scoreText: {instanceID: 0}
+  - heartText: {instanceID: 0}
+  - audioSource: {instanceID: 0}
+  - ballHitSound: {fileID: 8300000, guid: 5c6f4b6440a90da4d8884535929e274b, type: 3}
+  - groundHitSound: {fileID: 8300000, guid: 9acd0a97aad03cf48a527c86ff1e5e26, type: 3}
+  - gameOverSound: {fileID: 8300000, guid: 8a8cf755aec7e42cdb2ec847bf4ce531, type: 3}
+  - scene1BackgroundSound: {fileID: 8300000, guid: 9e03b4c1c8c2943209aaa15526e3637c,
+      type: 3}
+  - scene2BackgroundSound: {fileID: 8300000, guid: 9e03b4c1c8c2943209aaa15526e3637c,
+      type: 3}
+  - scene3BackgroundSound: {fileID: 8300000, guid: 9e03b4c1c8c2943209aaa15526e3637c,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
