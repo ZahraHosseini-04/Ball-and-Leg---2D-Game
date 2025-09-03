@@ -160,15 +160,31 @@ public class ShopManager : MonoBehaviour
 
         int i = IndexOf(item);
         if (i < 0 || i >= _BallItems.Length) return;
+    if (!IsItemAllowedInCurrentScene(item)) return;
 
         // آیکنِ خود آیتم داخل UI (child=0) را به‌عنوان sprite منبع می‌گیریم
         var img = _BallItems[i].transform.GetChild(0).GetComponent<Image>();
         if (img == null || img.sprite == null) return;
-        print("Oomdam");
-        _ballCtrl.ballRenderer.sprite = img.sprite;
+                _ballCtrl.ballRenderer.sprite = img.sprite;
         _ballCtrl.image.sprite = img.sprite;
         _ballCtrl.TrySetBallSprite(img.sprite);
     }
+
+private bool IsItemAllowedInCurrentScene(ItemShops key)
+{
+    string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
+    if (scene == "Scene1_foot")
+        return key == ItemShops.Football || key == ItemShops.Football1;
+
+    if (scene == "Scene2_basket")
+        return key == ItemShops.Basketball || key == ItemShops.Basketball1;
+
+    if (scene == "Scene3_tennis")
+        return key == ItemShops.TennisBall || key == ItemShops.TennisBall1;
+
+    return true;
+}
 
     public void ChoosenBallItem(ItemShops item)
     {

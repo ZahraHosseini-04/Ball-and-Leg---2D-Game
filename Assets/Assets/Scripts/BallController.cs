@@ -392,29 +392,62 @@ private Sprite GetSkinByTypeAndVariant(string typeKey, int variantIdx)
 
 private void ApplyBallSkinForCurrentScene_Simple()
 {
-    // اگر هیچ کدوم از رندرها/ایمیج‌ها نیستن، کاری نکنیم
     if (ballRenderer == null && image == null) return;
 
-    string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+    string scene  = SceneManager.GetActiveScene().name;
+    string chosen = PlayerPrefs.GetString(GlobalValue.ChoosenBall, string.Empty);
 
     if (scene == "Scene1_foot")
     {
-        //string chosen = PlayerPrefs.GetString(GlobalValue.ChoosenBall, string.Empty);
-
-        TrySetBallSprite(RandomOrFirst(footballSkins, false));
+        int idx = ResolveVariantIndexForScene(scene, chosen);
+        TrySetBallSprite(GetByIndexSafe(footballSkins, idx));
     }
     else if (scene == "Scene2_basket")
     {
-        TrySetBallSprite(RandomOrFirst(basketballSkins, false));
+        int idx = ResolveVariantIndexForScene(scene, chosen);
+        TrySetBallSprite(GetByIndexSafe(basketballSkins, idx));
     }
     else if (scene == "Scene3_tennis")
     {
-        TrySetBallSprite(RandomOrFirst(tennisSkins, false));
+        int idx = ResolveVariantIndexForScene(scene, chosen);
+        TrySetBallSprite(GetByIndexSafe(tennisSkins, idx));
     }
     else
     {
-        TrySetBallSprite(RandomOrFirst(footballSkins, false));
+        // پیش‌فرض
+        TrySetBallSprite(GetByIndexSafe(footballSkins, 0));
     }
+}
+private int ResolveVariantIndexForScene(string scene, string chosenKey)
+{
+    if (string.IsNullOrEmpty(chosenKey)) return 0;
+
+    switch (scene)
+    {
+        case "Scene1_foot":
+            if (chosenKey == GlobalValue.Football)   return 1; 
+            if (chosenKey == GlobalValue.FootBall1)  return 2; 
+            return 0; 
+
+        case "Scene2_basket":
+            if (chosenKey == GlobalValue.Basketball)   return 1;
+            if (chosenKey == GlobalValue.BasketBall1)  return 2;
+            return 0;
+
+        case "Scene3_tennis":
+            if (chosenKey == GlobalValue.TennisBall)   return 1;
+            if (chosenKey == GlobalValue.TennisBall1)  return 2;
+            return 0;
+
+        default:
+            return 0;
+    }
+}
+private Sprite GetByIndexSafe(Sprite[] bank, int idx)
+{
+    if (bank == null || bank.Length == 0) return null;
+    idx = Mathf.Clamp(idx, 0, bank.Length - 1);
+    return bank[idx];
 }
 
     private Sprite GetFirstSkinByType(string typeKey)
